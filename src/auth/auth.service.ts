@@ -1,8 +1,9 @@
 // src/auth/auth.service.ts
 
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException ,NotFoundException} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
+import { ResetPasswordDto } from './auth.dto'; 
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -26,5 +27,14 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void> {
+    const user = await this.userService.findByEmail(resetPasswordDto.email);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const hashedPassword = await bcrypt.hash(resetPasswordDto.newPassword, 10);
+    await this.userService.updatePassword(user.id, hashedPassword);
   }
 }
