@@ -21,8 +21,8 @@ model Product{
   id Int @id @default(autoincrement())
   name String
   description String
-  Price Int
-  stockQunatity Int
+  price Int
+  stockQuantity Int
   category String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -1,28 +1,28 @@
-import {  IsEmpty } from 'class-validator';
+import {  IsEmpty, IsNotEmpty } from 'class-validator';
 
 export class CreateProductDto {
-  @IsEmpty()
+  @IsNotEmpty()
   name: string;
 
-  @IsEmpty()
+  @IsNotEmpty()
   description: string;
-  @IsEmpty()
+  @IsNotEmpty()
   price: number;
-  @IsEmpty()
+  @IsNotEmpty()
   stockQuantity: number;
-  @IsEmpty()
+  @IsNotEmpty()
   category: string;
 }
 export class UpdateProductDto {
-  @IsEmpty()
+  @IsNotEmpty()
   name?: string;
 
-  @IsEmpty()
+  @IsNotEmpty()
   description?: string;
-  @IsEmpty()
+  @IsNotEmpty()
   price?: number;
-  @IsEmpty()
+  @IsNotEmpty()
   stockQuantity?: number;
-  @IsEmpty()
+  @IsNotEmpty()
   category?: string;
 }
