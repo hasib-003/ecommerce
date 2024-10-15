@@ -32,7 +32,7 @@ export class ProductService {
 
     return this.prisma.product.findMany({
       skip: skip,
-      take: limit,
+      take: +limit,
       where: {
         ...(filter?.category && { category: { equals: filter.category } }),
       },
