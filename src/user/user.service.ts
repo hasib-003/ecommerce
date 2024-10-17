@@ -30,6 +30,10 @@ export class UserService {
   async findByEmail(email: string): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { email } });
   }
+  async findAll(page: number, limit: number): Promise<User[]> {
+    const skip = (page - 1) * limit;
+    return this.prisma.user.findMany({ skip: skip, take: +limit });
+  }
 
   async findById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { id } });
