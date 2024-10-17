@@ -5,13 +5,15 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRedis } from '@nestjs-modules/ioredis';
+import {Redis as IORedis} from 'ioredis'
 import { PrismaService } from '../prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,@InjectRedis() private readonly redis:IORedis) {}
 
   async create(data: Prisma.UserCreateInput): Promise<User> {
     const existingUser = await this.findByEmail(data.email);
@@ -31,8 +33,16 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { email } });
   }
   async findAll(page: number, limit: number): Promise<User[]> {
+    const cacheKey=`users:page:${page}:limit:${limit}`;
+    const cacheData=await this.redis.get(cacheKey);
+    if(cacheData){
+      console.log('Serve from redis')
+      return JSON.parse(cacheData)
+    }
     const skip = (page - 1) * limit;
-    return this.prisma.user.findMany({ skip: skip, take: +limit });
+    const users=this.prisma.user.findMany({ skip: skip, take: +limit });
+    await this.redis.set(cacheKey,JSON.stringify(users),'EX',3600)
+    return users
   }
 
   async findById(id: number): Promise<User | null> {

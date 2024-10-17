@@ -8,8 +8,18 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './products/product.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
+import { RedisConfigModule } from './redis/redis.module';
 
 @Module({
-  imports: [ConfigModule, PrismaModule, AuthModule, UserModule,ProductModule,CartModule,OrderModule],
+  imports: [
+    ConfigModule,
+    PrismaModule,
+    AuthModule,
+    UserModule,
+    ProductModule,
+    CartModule,
+    OrderModule,
+    RedisConfigModule,
+  ],
 })
 export class AppModule {}
