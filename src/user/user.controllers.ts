@@ -28,6 +28,7 @@ export class UserController {
     description: 'User have been successfully created',
   })
   @ApiResponse({ status: 500, description: 'Internar server error' })
+  
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
@@ -41,6 +42,7 @@ export class UserController {
     type: CreateUserDto,
   })
   @ApiResponse({ status: 404, description: 'User not found.' })
+
   findOne(@Param('id') id: string) {
     return this.userService.findById(+id);
   }
@@ -76,7 +78,7 @@ export class UserController {
     description: 'The user has been successfully deleted.',
   }) 
   @ApiResponse({ status: 404, description: 'User not found.' })
-  
+
   remove(@Param('id') id: string) {
     return this.userService.delete(+id);
   }

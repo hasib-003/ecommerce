@@ -4,11 +4,13 @@ import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controllers';
 import { PrismaModule } from '../prisma/prisma.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronService } from './userCronJob.service';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule,ScheduleModule.forRoot()],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService,CronService],
   exports: [UserService],
 })
 export class UserModule {}
