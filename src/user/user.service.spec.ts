@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConflictException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 
 const redisToken = 'default_IORedisModuleConnectionToken';
 
@@ -46,7 +45,6 @@ describe('UserService', () => {
       const userData = { email: 'test@example.com', password: 'password',name:'john doe',address:'dhaka' };
       prismaService.user.findUnique = jest.fn().mockResolvedValue(null);
       prismaService.user.create = jest.fn().mockResolvedValue(userData);
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
 
       const result = await userService.create(userData);
 

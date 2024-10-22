@@ -22,7 +22,7 @@ import {
 @Controller('cart')
 @UseGuards(JwtAuthGuard)
 export class CartController {
-  constructor(private cartService: CartService) {}
+  constructor(private readonly cartService: CartService) {}
 
   @Get()
   @ApiOperation({ summary: 'Retrieve the cart for the authenticated user' })

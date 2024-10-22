@@ -1,6 +1,6 @@
 // src/auth/auth.service.ts
 
-import { Injectable, UnauthorizedException ,NotFoundException} from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { ResetPasswordDto } from './auth.dto'; 
@@ -9,8 +9,8 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {

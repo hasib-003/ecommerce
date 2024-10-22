@@ -5,7 +5,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('orders')
 @UseGuards(JwtAuthGuard)
 export class OrderController {
-  constructor(private orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService) {}
 
   @Post('place')
   placeOrder(@Request() req) {

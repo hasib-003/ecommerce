@@ -3,9 +3,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controllers';
 import { UserService } from './user.service';
-import { CreateUserDto, UpdateUserDto } from './user.dto';
+import { CreateUserDto } from './user.dto';
 import { ConflictException } from '@nestjs/common';
-import { emit } from 'process';
 
 const mockUserService = {
   create: jest.fn(),
