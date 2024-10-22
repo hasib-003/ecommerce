@@ -9,6 +9,7 @@ export class CreateUserDto {
     example:'john@gmail.com',
   })
   @IsEmail()
+
   email: string;
 
   @ApiProperty({
@@ -17,6 +18,7 @@ export class CreateUserDto {
   })
   @IsString()
   @MinLength(6)
+
   password: string;
 
   @ApiProperty({
@@ -25,6 +27,8 @@ export class CreateUserDto {
   })
   @IsString()
   @IsOptional()
+
+
   name: string;
   
   @ApiProperty({
@@ -32,6 +36,7 @@ export class CreateUserDto {
     example:'Dhaka,Bangladesh',
   })
   @IsString()
+
   address:string;
 }
 
@@ -58,5 +63,5 @@ export class UpdateUserDto {
     example: 'Dhaka,Bangladesh',
   })
   @IsString()
-  address: string;
+  address?: string;
 }
