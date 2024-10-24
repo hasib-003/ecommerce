@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { ProductService } from './product.service';
 import { CreateProductDto ,UpdateProductDto} from './product.dto';
 import { ApiTags,ApiOperation,ApiResponse, ApiQuery } from '@nestjs/swagger';
@@ -18,6 +19,8 @@ export class ProductController {
   createProduct(@Body() createProductDto: CreateProductDto) {
     return this.productService.createProduct(createProductDto);
   }
+
+  @Throttle({default:{limit:2,ttl:60}})
   @Get('')
   @ApiOperation({ summary: 'Retrieve all products' })
   @ApiResponse({
