@@ -1,25 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controllers';
 import { ProductService } from './product.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateProductDto, UpdateProductDto } from './product.dto';
 
 describe('ProductController', () => {
   let controller: ProductController;
   let service: ProductService;
 
-  const mockProductService = {
-    createProduct: jest.fn(),
-    getAllProducts: jest.fn(),
-    updateProduct: jest.fn(),
+  const mockPrismaService = {
+    product: {
+      create: jest.fn(),
+      findMany: jest.fn(),
+      update: jest.fn(),
+    },
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductController],
       providers: [
+        ProductService,
         {
-          provide: ProductService,
-          useValue: mockProductService,
+          provide: PrismaService,
+          useValue: mockPrismaService, // Mock the PrismaService
         },
       ],
     }).compile();
@@ -43,12 +47,12 @@ describe('ProductController', () => {
       };
 
       const result = { id: 1, ...createProductDto };
-      mockProductService.createProduct.mockResolvedValue(result);
+      mockPrismaService.product.create.mockResolvedValue(result);
 
       expect(await controller.createProduct(createProductDto)).toEqual(result);
-      expect(mockProductService.createProduct).toHaveBeenCalledWith(
-        createProductDto,
-      );
+      expect(mockPrismaService.product.create).toHaveBeenCalledWith({
+        data: createProductDto,
+      });
     });
   });
 
@@ -58,10 +62,13 @@ describe('ProductController', () => {
         { id: 1, name: 'Product 1', price: 100 },
         { id: 2, name: 'Product 2', price: 150 },
       ];
-      mockProductService.getAllProducts.mockResolvedValue(result);
+      mockPrismaService.product.findMany.mockResolvedValue(result);
 
       expect(await controller.getAllProducts(1, 10)).toEqual(result);
-      expect(mockProductService.getAllProducts).toHaveBeenCalledWith(1, 10);
+      expect(mockPrismaService.product.findMany).toHaveBeenCalledWith({
+        skip: 0,
+        take: 10,
+      });
     });
   });
 
@@ -73,15 +80,15 @@ describe('ProductController', () => {
       };
 
       const result = { id: 1, ...updateProductDto };
-      mockProductService.updateProduct.mockResolvedValue(result);
+      mockPrismaService.product.update.mockResolvedValue(result);
 
       expect(await controller.updateProduct('1', updateProductDto)).toEqual(
         result,
       );
-      expect(mockProductService.updateProduct).toHaveBeenCalledWith(
-        1,
-        updateProductDto,
-      );
+      expect(mockPrismaService.product.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: updateProductDto,
+      });
     });
   });
 });
