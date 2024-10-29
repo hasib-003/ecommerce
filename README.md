@@ -35,3 +35,29 @@ A scalable backend system for an e-commerce platform, handling product managemen
    ```bash
    git clone https://github.com/your-username/e-commerce-backend.git
    cd e-commerce-backend
+2. **Install dependencies**
+
+    ```bash 
+    npm install
+3. **Environment Configuration**
+    ```bash
+    DATABASE_URL=postgresql://user:password@localhost:5432/database_name
+    JWT_SECRET=your_jwt_secret_key
+    REDIS_HOST=localhost
+    REDIS_PORT=6379
+
+4. **Setup Database with Prisma**
+    ```bash
+    npx prisma migrate dev --name init
+    npx prisma generate
+
+**Running the Application**
+
+1. **Start Redis Server**
+    ```bash
+    redis-server
+2. **Start the Application**
+    ```bash
+    npm run start:dev
+3. **API Documentation**
+     Access Swagger documentation at http://localhost:3000/api.
