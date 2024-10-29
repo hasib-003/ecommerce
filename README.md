@@ -1,24 +1,37 @@
-E-Commerce Backend
-Overview
-This project is a scalable and efficient backend system for an e-commerce platform that includes:
+# E-Commerce Backend System
 
-User Authentication (using JWT)
-Product Management (CRUD operations with pagination and filtering)
-Shopping Cart Functionality
-Order Processing
-Security Measures (input validation, rate limiting, and encryption)
+A scalable backend system for an e-commerce platform, handling product management, user authentication, shopping cart functionality, and order processing.
 
-Technologies Used:
-Node.js (Programming Language)
-NestJS (Framework)
-PostgreSQL (Database)
-JWT (Authentication)
-Swagger (API Documentation)
-Git (Version Control)
-Prerequisites
-Before running this project, ensure you have the following installed on your machine:
+## 🛠️ Technologies Used
 
-Node.js (v16 or above)
-PostgreSQL (v13 or above)
-Git
-Docker (optional, but recommended for containerization)
+- **Framework**: NestJS
+- **ORM**: Prisma
+- **Database**: PostgreSQL
+- **Authentication**: JWT
+- **Caching**: Redis
+- **Documentation**: Swagger
+- **Testing**: Jest
+
+## ✨ Features
+
+1. **User Authentication**: Register, log in, log out, reset passwords.
+2. **Product Management**: CRUD operations for products with pagination and filtering.
+3. **Shopping Cart**: Add, update, and remove products in the cart with total price calculation.
+4. **Order Processing**: Place orders, deduct product stock, and view order history.
+5. **Security**: Input validation, JWT for authentication, hashed passwords, and rate limiting.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** (>= 14.x)
+- **PostgreSQL** (Database setup required)
+- **Redis** (for caching)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/e-commerce-backend.git
+   cd e-commerce-backend
